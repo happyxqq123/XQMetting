@@ -1,0 +1,8 @@
+syntax="proto3";
+
+option java_package = "com.xqmetting.protocol.message";
+
+message ChatResponseMessage{
+  string from = 1;
+  string content = 2;
+}

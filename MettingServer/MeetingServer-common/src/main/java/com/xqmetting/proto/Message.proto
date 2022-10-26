@@ -6,6 +6,29 @@ import "google/protobuf/any.proto";
 
 message Message{
   int32 sequenceId = 1;
-  int32 messageType = 2;
-  google.protobuf.Any data = 3;
+  google.protobuf.Any data = 2;
+  MessageType messageType = 3;
+}
+
+enum MessageType{
+    LoginRequestMessage = 0;
+    LoginResponseMessage = 1;
+    ChatRequestMessage = 2;
+    ChatResponseMessage = 3;
+    GroupChatRequestMessage = 4;
+    GroupChatResponseMessage = 5;
+    PingMessage = 6;
+    PongMessage = 7;
+    ServerPeerConnectedMessage = 8;
+    GroupRemoteChatRequestMessage = 9;
+
+    /**
+     * 请求类型 byte值
+     */
+    RPC_MESSAGE_TYPE_REQUEST = 101;
+    /**
+     * 响应类型byte值
+     */
+    RPC_MESSAGE_TYPE_RESPONSE =102;
+
 }

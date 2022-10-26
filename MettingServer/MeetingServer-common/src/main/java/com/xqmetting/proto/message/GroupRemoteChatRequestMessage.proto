@@ -1,0 +1,8 @@
+syntax="proto3";
+
+option java_package = "com.xqmetting.protocol.message";
+
+message GroupRemoteChatRequestMessage{
+  string content = 1;
+  string from = 2;
+}
