@@ -11,24 +11,24 @@ message Message{
 }
 
 enum MessageType{
-    LoginRequestMessage = 0;
-    LoginResponseMessage = 1;
-    ChatRequestMessage = 2;
-    ChatResponseMessage = 3;
-    GroupChatRequestMessage = 4;
-    GroupChatResponseMessage = 5;
-    PingMessage = 6;
-    PongMessage = 7;
-    ServerPeerConnectedMessage = 8;
-    GroupRemoteChatRequestMessage = 9;
+    LoginRequestMessageType = 0;
+    LoginResponseMessageType = 1;
+    ChatRequestMessageType = 2;
+    ChatResponseMessageType = 3;
+    GroupChatRequestMessageType = 4;
+    GroupChatResponseMessageType = 5;
+    PingMessageType = 6;
+    PongMessageType = 7;
+    ServerPeerConnectedMessageType = 8;
+    GroupRemoteChatRequestMessageType = 9;
 
     /**
      * 请求类型 byte值
      */
-    RPC_MESSAGE_TYPE_REQUEST = 101;
+    RPC_MESSAGE_TYPE_REQUEST_Type = 101;
     /**
      * 响应类型byte值
      */
-    RPC_MESSAGE_TYPE_RESPONSE =102;
+    RPC_MESSAGE_TYPE_RESPONSE_Type =102;
 
 }

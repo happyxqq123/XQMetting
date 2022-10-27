@@ -9,34 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>MeetingServer-common</artifactId>
-    <packaging>jar</packaging>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
-                <configuration>
-                    <protocExecutable>${project.basedir}..\..\protoc.exe</protocExecutable>
-                    <pluginId>protoc-java</pluginId>
-                    <!-- proto文件放置的目录 -->
-                    <protoSourceRoot>${project.basedir}/src/main/java/com/xqmetting/proto</protoSourceRoot>
-                    <!-- 生成文件的目录 -->
-                    <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
-                    <!-- 生成文件前是否把目标目录清空，这个最好设置为false，以免误删项目文件 -->
-                    <clearOutputDirectory>false</clearOutputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

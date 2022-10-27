@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.xqmetting.web</groupId>
+    <packaging>pom</packaging>
     <artifactId>MettingServerWeb</artifactId>
 
     <properties>

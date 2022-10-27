@@ -1,0 +1,9 @@
+chat:
+  server:
+    port: 18080
+
+spring:
+  redis:
+    host: 114.55.64.45
+    port: 6379
+    password: Xqq123456
