@@ -76,6 +76,12 @@
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>guava</groupId>
+                    <artifactId>com.google.guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
