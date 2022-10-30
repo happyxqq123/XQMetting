@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component("mettingServer")
 @Slf4j
-public class MettingServer {
+public class MainMettingServer {
 
     @Value("${chat.server.port}")
     private int port;
