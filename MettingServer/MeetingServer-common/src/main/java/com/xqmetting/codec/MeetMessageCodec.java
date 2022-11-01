@@ -1,6 +1,7 @@
 package com.xqmetting.codec;
 
 import com.xqmetting.protocol.MessageOuterClass.Message;
+import com.xqmetting.util.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
@@ -21,17 +22,27 @@ public class MeetMessageCodec extends ByteToMessageCodec<Message> {
         out.writeInt(message.getMessageType().getNumber());
         //5.4 字节 序列
         out.writeInt(message.getSequenceId());
-        //5.无意义对齐补充
+        //5.2 字节 无意义对齐补充
         out.writeShort(0xffff);
-
         byte [] msgBytes = message.toByteArray();
         //7 写入消息体长度
         out.writeInt(msgBytes.length);
         out.writeBytes(msgBytes);
+        ByteBufUtils.log(out);
     }
-
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
-
+        int magicNum = byteBuf.readInt();  //读取魔数
+        byte version = byteBuf.readByte(); //读取版本号
+        byte serializerType = byteBuf.readByte(); //  字节的序列化
+        int messageType = byteBuf.readInt(); //读取消息类型
+        int sequenceId = byteBuf.readInt(); //读取消息序列号
+        byteBuf.readShort(); //读取对齐
+        int msgLen = byteBuf.readInt(); //读取消息长度
+        byte[] buf = new byte[msgLen];
+        byteBuf.readBytes(buf,0,msgLen);
+        Message message = Message.parseFrom(buf);
+        System.out.println(message.toString());
+        list.add(message);
     }
 }

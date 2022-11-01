@@ -30,7 +30,13 @@ public class DirectMemoryReporter {
     }
 
     private static void doReport(){
-        int memoryInb = (int) (directMemory.get()/_1K);
-        log.info("{}:{}K",BUSINESS_KEY,memoryInb);
+        if(directMemory != null){
+            int memoryInb = (int) (directMemory.get()/_1K);
+            log.info("{}:{}K",BUSINESS_KEY,memoryInb);
+        }
+    }
+
+    public static void main(String[] args) {
+        doReport();
     }
 }

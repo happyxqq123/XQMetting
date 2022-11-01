@@ -23,7 +23,7 @@ import java.util.List;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MettingServerApplication.class)
-public class Test1 {
+public class TestZookeeper {
 
     @Resource
     private RedisTemplate<String,Object> redisTemplate;
