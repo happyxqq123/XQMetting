@@ -1,0 +1,11 @@
+syntax="proto3";
+
+option java_package = "com.xqmetting.protocol";
+
+import "Message.proto";
+
+message ServerPeerConnectedMessage{
+
+  Message msg = 1;
+
+}

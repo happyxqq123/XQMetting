@@ -1,13 +1,29 @@
 package com.xqmetting.server.service.server;
 
 
+import com.xqmetting.codec.MeetMessageCodec;
 import com.xqmetting.server.service.Service;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
+import io.netty.channel.epoll.Epoll;
+import io.netty.channel.epoll.EpollEventLoopGroup;
+import io.netty.channel.epoll.EpollServerSocketChannel;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
-@Component("mettingServer")
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
+
+@Component
 @Slf4j
 public class Server extends Service implements InitializingBean {
 
@@ -22,10 +38,76 @@ public class Server extends Service implements InitializingBean {
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
 
+    private ServerBootstrap bootstrap;
+
+
+
     public void startServer(){
+        init();
+
+        bootstrap = new ServerBootstrap();
+        bootstrap.group(bossGroup,workerGroup);
+        bootstrap.childOption(ChannelOption.SO_KEEPALIVE,socketConfig.isKeepAlive());
+        bootstrap.childOption(ChannelOption.TCP_NODELAY, socketConfig.isTcpNoDelay());
+        bootstrap.channel(useEpoll()? EpollServerSocketChannel.class : NioServerSocketChannel.class);
+        bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
+
+            @Override
+            protected void initChannel(SocketChannel ch) throws Exception {
+                ChannelPipeline pipeline = ch.pipeline();
+                pipeline.addLast(new LengthFieldBasedFrameDecoder(8192,16,4,0,0));
+                pipeline.addLast(new MeetMessageCodec());
+
+
+            }
+        });
 
     }
 
+    @Override
+    protected void init() {
+        super.init();
+        if(useEpoll()){
+            bossGroup = new EpollEventLoopGroup(socketConfig.getWorkerCount(), new ThreadFactory() {
+
+                private AtomicInteger index = new AtomicInteger(0);
+                @Override
+                public Thread newThread(Runnable r) {
+                    return new Thread(r,"LINUX_BOSS_"+index.incrementAndGet());
+                }
+            });
+            workerGroup = new EpollEventLoopGroup(socketConfig.getWorkerCount(), new ThreadFactory() {
+               private AtomicInteger index = new AtomicInteger(0);
+                @Override
+                public Thread newThread(Runnable r) {
+                    return new Thread(r,"LINUX_WORKER_"+index.incrementAndGet());
+                }
+            });
+        }else{
+            bossGroup = new NioEventLoopGroup(socketConfig.getWorkerCount(), new ThreadFactory() {
+                private AtomicInteger index = new AtomicInteger(0);
+
+                @Override
+                public Thread newThread(Runnable r) {
+                    return new Thread(r, "BOSS_" + index.incrementAndGet());
+                }
+            });
+            workerGroup = new NioEventLoopGroup(socketConfig.getWorkerCount(), new ThreadFactory() {
+                private AtomicInteger index = new AtomicInteger(0);
+
+                @Override
+                public Thread newThread(Runnable r) {
+                    return new Thread(r, "WORK_" + index.incrementAndGet());
+                }
+            });
+        }
+    }
+
+    public boolean useEpoll(){
+        String osName = System.getProperty("os.name");
+        boolean isLinuxPlatform = StringUtils.containsIgnoreCase(osName,"linux");
+        return isLinuxPlatform && Epoll.isAvailable();
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {

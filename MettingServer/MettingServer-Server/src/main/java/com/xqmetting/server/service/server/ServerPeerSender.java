@@ -3,7 +3,7 @@ package com.xqmetting.server.service.server;
 import com.xqmetting.codec.MeetMessageCodec;
 import com.xqmetting.codec.ProtocolFrameDecoder;
 import com.xqmetting.entity.ServerNode;
-import com.xqmetting.server.utils.ProtoBufUtils;
+import com.xqmetting.util.ProtoBufUtils;
 import com.xqmetting.server.utils.SpringContextUtil;
 import com.xqmetting.server.worker.ServerWorker;
 import io.netty.bootstrap.Bootstrap;

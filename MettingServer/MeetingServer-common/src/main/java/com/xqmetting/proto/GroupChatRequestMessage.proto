@@ -1,8 +1,11 @@
 syntax="proto3";
 
-option java_package = "com.xqmetting.protocol.message";
+option java_package = "com.xqmetting.protocol";
+
+import "Message.proto";
 
 message GroupChatRequestMessage{
   string content = 1;
   string from = 2;
+  Message msg = 3;
 }

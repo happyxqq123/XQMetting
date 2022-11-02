@@ -243,21 +243,6 @@ public final class MessageOuterClass {
     int getSequenceId();
 
     /**
-     * <code>.google.protobuf.Any data = 2;</code>
-     * @return Whether the data field is set.
-     */
-    boolean hasData();
-    /**
-     * <code>.google.protobuf.Any data = 2;</code>
-     * @return The data.
-     */
-    com.google.protobuf.Any getData();
-    /**
-     * <code>.google.protobuf.Any data = 2;</code>
-     */
-    com.google.protobuf.AnyOrBuilder getDataOrBuilder();
-
-    /**
      * <code>.MessageType messageType = 3;</code>
      * @return The enum numeric value on the wire for messageType.
      */
@@ -319,19 +304,6 @@ public final class MessageOuterClass {
               sequenceId_ = input.readInt32();
               break;
             }
-            case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
-              if (data_ != null) {
-                subBuilder = data_.toBuilder();
-              }
-              data_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(data_);
-                data_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
             case 24: {
               int rawValue = input.readEnum();
 
@@ -383,32 +355,6 @@ public final class MessageOuterClass {
       return sequenceId_;
     }
 
-    public static final int DATA_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any data_;
-    /**
-     * <code>.google.protobuf.Any data = 2;</code>
-     * @return Whether the data field is set.
-     */
-    @java.lang.Override
-    public boolean hasData() {
-      return data_ != null;
-    }
-    /**
-     * <code>.google.protobuf.Any data = 2;</code>
-     * @return The data.
-     */
-    @java.lang.Override
-    public com.google.protobuf.Any getData() {
-      return data_ == null ? com.google.protobuf.Any.getDefaultInstance() : data_;
-    }
-    /**
-     * <code>.google.protobuf.Any data = 2;</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getDataOrBuilder() {
-      return getData();
-    }
-
     public static final int MESSAGETYPE_FIELD_NUMBER = 3;
     private int messageType_;
     /**
@@ -445,9 +391,6 @@ public final class MessageOuterClass {
       if (sequenceId_ != 0) {
         output.writeInt32(1, sequenceId_);
       }
-      if (data_ != null) {
-        output.writeMessage(2, getData());
-      }
       if (messageType_ != com.xqmetting.protocol.MessageOuterClass.MessageType.LoginRequestMessageType.getNumber()) {
         output.writeEnum(3, messageType_);
       }
@@ -463,10 +406,6 @@ public final class MessageOuterClass {
       if (sequenceId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, sequenceId_);
-      }
-      if (data_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getData());
       }
       if (messageType_ != com.xqmetting.protocol.MessageOuterClass.MessageType.LoginRequestMessageType.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
@@ -489,11 +428,6 @@ public final class MessageOuterClass {
 
       if (getSequenceId()
           != other.getSequenceId()) return false;
-      if (hasData() != other.hasData()) return false;
-      if (hasData()) {
-        if (!getData()
-            .equals(other.getData())) return false;
-      }
       if (messageType_ != other.messageType_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -508,10 +442,6 @@ public final class MessageOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + SEQUENCEID_FIELD_NUMBER;
       hash = (53 * hash) + getSequenceId();
-      if (hasData()) {
-        hash = (37 * hash) + DATA_FIELD_NUMBER;
-        hash = (53 * hash) + getData().hashCode();
-      }
       hash = (37 * hash) + MESSAGETYPE_FIELD_NUMBER;
       hash = (53 * hash) + messageType_;
       hash = (29 * hash) + unknownFields.hashCode();
@@ -649,12 +579,6 @@ public final class MessageOuterClass {
         super.clear();
         sequenceId_ = 0;
 
-        if (dataBuilder_ == null) {
-          data_ = null;
-        } else {
-          data_ = null;
-          dataBuilder_ = null;
-        }
         messageType_ = 0;
 
         return this;
@@ -684,11 +608,6 @@ public final class MessageOuterClass {
       public com.xqmetting.protocol.MessageOuterClass.Message buildPartial() {
         com.xqmetting.protocol.MessageOuterClass.Message result = new com.xqmetting.protocol.MessageOuterClass.Message(this);
         result.sequenceId_ = sequenceId_;
-        if (dataBuilder_ == null) {
-          result.data_ = data_;
-        } else {
-          result.data_ = dataBuilder_.build();
-        }
         result.messageType_ = messageType_;
         onBuilt();
         return result;
@@ -740,9 +659,6 @@ public final class MessageOuterClass {
         if (other == com.xqmetting.protocol.MessageOuterClass.Message.getDefaultInstance()) return this;
         if (other.getSequenceId() != 0) {
           setSequenceId(other.getSequenceId());
-        }
-        if (other.hasData()) {
-          mergeData(other.getData());
         }
         if (other.messageType_ != 0) {
           setMessageTypeValue(other.getMessageTypeValue());
@@ -805,125 +721,6 @@ public final class MessageOuterClass {
         sequenceId_ = 0;
         onChanged();
         return this;
-      }
-
-      private com.google.protobuf.Any data_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> dataBuilder_;
-      /**
-       * <code>.google.protobuf.Any data = 2;</code>
-       * @return Whether the data field is set.
-       */
-      public boolean hasData() {
-        return dataBuilder_ != null || data_ != null;
-      }
-      /**
-       * <code>.google.protobuf.Any data = 2;</code>
-       * @return The data.
-       */
-      public com.google.protobuf.Any getData() {
-        if (dataBuilder_ == null) {
-          return data_ == null ? com.google.protobuf.Any.getDefaultInstance() : data_;
-        } else {
-          return dataBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.google.protobuf.Any data = 2;</code>
-       */
-      public Builder setData(com.google.protobuf.Any value) {
-        if (dataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          data_ = value;
-          onChanged();
-        } else {
-          dataBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Any data = 2;</code>
-       */
-      public Builder setData(
-          com.google.protobuf.Any.Builder builderForValue) {
-        if (dataBuilder_ == null) {
-          data_ = builderForValue.build();
-          onChanged();
-        } else {
-          dataBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Any data = 2;</code>
-       */
-      public Builder mergeData(com.google.protobuf.Any value) {
-        if (dataBuilder_ == null) {
-          if (data_ != null) {
-            data_ =
-              com.google.protobuf.Any.newBuilder(data_).mergeFrom(value).buildPartial();
-          } else {
-            data_ = value;
-          }
-          onChanged();
-        } else {
-          dataBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Any data = 2;</code>
-       */
-      public Builder clearData() {
-        if (dataBuilder_ == null) {
-          data_ = null;
-          onChanged();
-        } else {
-          data_ = null;
-          dataBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Any data = 2;</code>
-       */
-      public com.google.protobuf.Any.Builder getDataBuilder() {
-        
-        onChanged();
-        return getDataFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.google.protobuf.Any data = 2;</code>
-       */
-      public com.google.protobuf.AnyOrBuilder getDataOrBuilder() {
-        if (dataBuilder_ != null) {
-          return dataBuilder_.getMessageOrBuilder();
-        } else {
-          return data_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : data_;
-        }
-      }
-      /**
-       * <code>.google.protobuf.Any data = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
-          getDataFieldBuilder() {
-        if (dataBuilder_ == null) {
-          dataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
-                  getData(),
-                  getParentForChildren(),
-                  isClean());
-          data_ = null;
-        }
-        return dataBuilder_;
       }
 
       private int messageType_ = 0;
@@ -1047,20 +844,19 @@ public final class MessageOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\rMessage.proto\032\031google/protobuf/any.pro" +
-      "to\"d\n\007Message\022\022\n\nsequenceId\030\001 \001(\005\022\"\n\004dat" +
-      "a\030\002 \001(\0132\024.google.protobuf.Any\022!\n\013message" +
-      "Type\030\003 \001(\0162\014.MessageType*\200\003\n\013MessageType" +
-      "\022\033\n\027LoginRequestMessageType\020\000\022\034\n\030LoginRe" +
-      "sponseMessageType\020\001\022\032\n\026ChatRequestMessag" +
-      "eType\020\002\022\033\n\027ChatResponseMessageType\020\003\022\037\n\033" +
-      "GroupChatRequestMessageType\020\004\022 \n\034GroupCh" +
-      "atResponseMessageType\020\005\022\023\n\017PingMessageTy" +
-      "pe\020\006\022\023\n\017PongMessageType\020\007\022\"\n\036ServerPeerC" +
-      "onnectedMessageType\020\010\022%\n!GroupRemoteChat" +
-      "RequestMessageType\020\t\022!\n\035RPC_MESSAGE_TYPE" +
-      "_REQUEST_Type\020e\022\"\n\036RPC_MESSAGE_TYPE_RESP" +
-      "ONSE_Type\020fB\030\n\026com.xqmetting.protocolb\006p" +
-      "roto3"
+      "to\"@\n\007Message\022\022\n\nsequenceId\030\001 \001(\005\022!\n\013mes" +
+      "sageType\030\003 \001(\0162\014.MessageType*\200\003\n\013Message" +
+      "Type\022\033\n\027LoginRequestMessageType\020\000\022\034\n\030Log" +
+      "inResponseMessageType\020\001\022\032\n\026ChatRequestMe" +
+      "ssageType\020\002\022\033\n\027ChatResponseMessageType\020\003" +
+      "\022\037\n\033GroupChatRequestMessageType\020\004\022 \n\034Gro" +
+      "upChatResponseMessageType\020\005\022\023\n\017PingMessa" +
+      "geType\020\006\022\023\n\017PongMessageType\020\007\022\"\n\036ServerP" +
+      "eerConnectedMessageType\020\010\022%\n!GroupRemote" +
+      "ChatRequestMessageType\020\t\022!\n\035RPC_MESSAGE_" +
+      "TYPE_REQUEST_Type\020e\022\"\n\036RPC_MESSAGE_TYPE_" +
+      "RESPONSE_Type\020fB\030\n\026com.xqmetting.protoco" +
+      "lb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1072,7 +868,7 @@ public final class MessageOuterClass {
     internal_static_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Message_descriptor,
-        new java.lang.String[] { "SequenceId", "Data", "MessageType", });
+        new java.lang.String[] { "SequenceId", "MessageType", });
     com.google.protobuf.AnyProto.getDescriptor();
   }
 
