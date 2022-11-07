@@ -4,10 +4,7 @@ package com.xqmetting.server.service.server;
 import com.xqmetting.codec.MeetMessageCodec;
 import com.xqmetting.server.service.Service;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;
 import io.netty.channel.epoll.EpollEventLoopGroup;
 import io.netty.channel.epoll.EpollServerSocketChannel;
@@ -15,11 +12,14 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import java.net.InetSocketAddress;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -45,22 +45,38 @@ public class Server extends Service implements InitializingBean {
     public void startServer(){
         init();
 
-        bootstrap = new ServerBootstrap();
-        bootstrap.group(bossGroup,workerGroup);
-        bootstrap.childOption(ChannelOption.SO_KEEPALIVE,socketConfig.isKeepAlive());
-        bootstrap.childOption(ChannelOption.TCP_NODELAY, socketConfig.isTcpNoDelay());
-        bootstrap.channel(useEpoll()? EpollServerSocketChannel.class : NioServerSocketChannel.class);
-        bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
+        try{
+            bootstrap = new ServerBootstrap();
+            bootstrap.group(bossGroup,workerGroup);
+            bootstrap.childOption(ChannelOption.SO_KEEPALIVE,socketConfig.isKeepAlive());
+            bootstrap.childOption(ChannelOption.TCP_NODELAY, socketConfig.isTcpNoDelay());
+            bootstrap.channel(useEpoll()? EpollServerSocketChannel.class : NioServerSocketChannel.class);
+            bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
 
-            @Override
-            protected void initChannel(SocketChannel ch) throws Exception {
-                ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast(new LengthFieldBasedFrameDecoder(8192,16,4,0,0));
-                pipeline.addLast(new MeetMessageCodec());
+                @Override
+                protected void initChannel(SocketChannel ch) throws Exception {
+                    ChannelPipeline pipeline = ch.pipeline();
+                    pipeline.addLast(new LengthFieldBasedFrameDecoder(8192,16,4,0,0));
+                    pipeline.addLast(new MeetMessageCodec());
+                }
+            });
+            bootstrap.localAddress(new InetSocketAddress(socketConfig.getPort()));
+            ChannelFuture channelFuture = bootstrap.bind().sync();
+            channelFuture.addListener(new GenericFutureListener<Future<? super Void>>() {
+                @Override
+                public void operationComplete(Future<? super Void> future) throws Exception {
+                    if(future.isSuccess()){
+                        log.info("服务端启动成功！");
+                        //注册到zookeeper
+                    }
+                }
+            });
+        }catch (Exception ex){
+            ex.printStackTrace();;
+        }finally{
 
+        }
 
-            }
-        });
 
     }
 
