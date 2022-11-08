@@ -5,10 +5,12 @@ import com.xqmetting.entity.ServerNode;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
 
+@Component
 public class ZkServiceImpl implements ZkService{
 
     @Resource

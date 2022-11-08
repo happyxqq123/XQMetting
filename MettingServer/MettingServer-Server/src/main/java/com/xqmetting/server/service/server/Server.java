@@ -3,6 +3,8 @@ package com.xqmetting.server.service.server;
 
 import com.xqmetting.codec.MeetMessageCodec;
 import com.xqmetting.server.service.Service;
+import com.xqmetting.server.utils.SpringContextUtil;
+import com.xqmetting.server.worker.ServerRouterWorker;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;
@@ -16,9 +18,11 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.curator.framework.CuratorFramework;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -39,6 +43,9 @@ public class Server extends Service implements InitializingBean {
     private EventLoopGroup workerGroup;
 
     private ServerBootstrap bootstrap;
+
+    @Resource
+    private ServerRouterWorker serverRouterWorker;
 
 
 
@@ -68,13 +75,19 @@ public class Server extends Service implements InitializingBean {
                     if(future.isSuccess()){
                         log.info("服务端启动成功！");
                         //注册到zookeeper
+                        serverRouterWorker.init();
                     }
                 }
             });
+            //监听通道关闭事件
+            //一直等待，直到channel关闭
+            ChannelFuture closeFuture = channelFuture.channel().closeFuture();
+            closeFuture.sync();
         }catch (Exception ex){
             ex.printStackTrace();;
         }finally{
-
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
         }
 
 
@@ -127,11 +140,14 @@ public class Server extends Service implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println(socketConfig);
+        CuratorFramework curatorFramework =  SpringContextUtil.getBean(CuratorFramework.class);
+        System.out.println(curatorFramework);
+      //  startServer();
     }
 
     @Override
     public void shutdown() {
-
+        bossGroup.shutdownGracefully();
+        workerGroup.shutdownGracefully();
     }
 }
