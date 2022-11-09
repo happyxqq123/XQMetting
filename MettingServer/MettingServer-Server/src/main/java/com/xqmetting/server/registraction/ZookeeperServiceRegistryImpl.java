@@ -11,10 +11,13 @@ import javax.annotation.Resource;
 
 @Service
 @Slf4j
-public class ServiceRegistryImpl implements ServiceRegistry {
+public class ZookeeperServiceRegistryImpl implements ServiceRegistry {
 
     @Resource
     private ZkService zkService;
+
+    @Resource
+    private ServerWorker serverWorker;
 
 
     @Override
@@ -24,9 +27,10 @@ public class ServiceRegistryImpl implements ServiceRegistry {
             //为node设置ID,
             serverNode.setId(ZookeeperUtils.getIdByPath(pathRegistered,ZookeeperUtils.PATH_PREFIX));
             log.info("本地节点, path={}, id={}",pathRegistered,serverNode.getId());
-            ServerWorker.instance().setServerNode(serverNode);
+            serverWorker.setServerNode(serverNode);
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
 

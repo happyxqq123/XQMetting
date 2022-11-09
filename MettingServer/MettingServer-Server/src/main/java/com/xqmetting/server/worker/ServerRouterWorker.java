@@ -25,17 +25,23 @@ public class ServerRouterWorker {
             return;
         }
 
+        try{
+            CuratorCache curatorCache = CuratorCache.build(curatorFramework, ZookeeperUtils.MANAGE_PATH,CuratorCache.Options.COMPRESSED_DATA);
+            curatorCache.start();
+            curatorCache.listenable().addListener(new CuratorCacheListener() {
+                @Override
+                public void event(Type type, ChildData oldData, ChildData data) {
+                    System.out.println(type);
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 //        CuratorFramework curatorFramework = CuratorZKclient.getSingleton();
 //        System.out.println(curatorFramework);
         //订阅节点的增加和删除事件
-        CuratorCache curatorCache = CuratorCache.build(curatorFramework, ZookeeperUtils.MANAGE_PATH,CuratorCache.Options.COMPRESSED_DATA);
-        curatorCache.start();
-        curatorCache.listenable().addListener(new CuratorCacheListener() {
-            @Override
-            public void event(Type type, ChildData oldData, ChildData data) {
-                System.out.println(type);
-            }
-        });
+
+
     }
 
 

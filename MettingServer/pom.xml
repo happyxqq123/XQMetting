@@ -54,7 +54,6 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
-
         <!-- 仅仅需要基本的starter,不需要web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

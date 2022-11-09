@@ -2,6 +2,7 @@ package com.xqmetting.server.service.server;
 
 
 import com.xqmetting.codec.MeetMessageCodec;
+import com.xqmetting.registry.ServiceRegistry;
 import com.xqmetting.server.service.Service;
 import com.xqmetting.server.utils.SpringContextUtil;
 import com.xqmetting.server.worker.ServerRouterWorker;
@@ -47,11 +48,13 @@ public class Server extends Service implements InitializingBean {
     @Resource
     private ServerRouterWorker serverRouterWorker;
 
+    @Resource
+    private ServiceRegistry serviceRegistry;
+
 
 
     public void startServer(){
         init();
-
         try{
             bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup,workerGroup);
@@ -74,7 +77,11 @@ public class Server extends Service implements InitializingBean {
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     if(future.isSuccess()){
                         log.info("服务端启动成功！");
+
                         //注册到zookeeper
+                    //    ServerNode serverNode = new ServerNode("127.0.0.1",socketConfig.getPort());
+                      ///  serviceRegistry.register(serverNode);
+                        //开启监听
                         serverRouterWorker.init();
                     }
                 }
@@ -98,7 +105,6 @@ public class Server extends Service implements InitializingBean {
         super.init();
         if(useEpoll()){
             bossGroup = new EpollEventLoopGroup(socketConfig.getWorkerCount(), new ThreadFactory() {
-
                 private AtomicInteger index = new AtomicInteger(0);
                 @Override
                 public Thread newThread(Runnable r) {
@@ -123,7 +129,6 @@ public class Server extends Service implements InitializingBean {
             });
             workerGroup = new NioEventLoopGroup(socketConfig.getWorkerCount(), new ThreadFactory() {
                 private AtomicInteger index = new AtomicInteger(0);
-
                 @Override
                 public Thread newThread(Runnable r) {
                     return new Thread(r, "WORK_" + index.incrementAndGet());
