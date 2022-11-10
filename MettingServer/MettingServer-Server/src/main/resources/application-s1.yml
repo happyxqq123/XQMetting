@@ -1,0 +1,39 @@
+server:
+    ip: 127.0.0.1
+    port: 18081
+    socketType: 1        #socket类型 1普通socket 2 websocket
+    keepAlive: true      #是否启用keepAlive true or false
+    tcpNoDelay: true     #是否启用tcpNoDelay
+    workerCount: 0      #工作线程池大小 如果设置为0 由程序根据cpu核心数设置
+    openExecutor: false  #是否开启业务处理线程池
+    corePoolSize: 10     #消息事件业务处理线程池最小保持线程数
+    maximumPoolSize: 150 #消息事件业务处理线程池最大线程数
+    queueCapacity: 1000000 #消息事件业务处理线程池队列最大值
+    checkHeartbeat: true   #是否开启心跳检查
+    readerIdleTimeSeconds: 30 #心跳检查时读空闲事件 s
+    writerIdleTimeSeconds: 10 #心跳检查时的写空间时间
+    allIdleTimeSeconds: 0   #心跳检查的读写空闲时间
+
+
+spring:
+  redis:
+    host: 114.55.64.45
+    port: 6379
+    password: Xqq123456
+
+curator:
+  #重试retryCount次,当会话超时出现后，curator会每间隔elapsedTimeMs毫秒时间重试一次，共重试retryCount次
+  retryCount: 5
+  elapsedTimeMs: 5000
+  connectString: 114.55.64.45:2181,112.124.45.211:2181,112.124.45.211:2180
+  #会话超时时间设置
+  sessionTimeoutMs: 60000
+  #连接超时时间
+  connectionTimeoutMs: 5000
+  #命名空间
+  namespace: meeting-server
+
+session:
+  expireTime: 7200
+
+

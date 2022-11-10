@@ -2,6 +2,7 @@ package com.xqmetting.server.service.server;
 
 
 import com.xqmetting.codec.MeetMessageCodec;
+import com.xqmetting.entity.ServerNode;
 import com.xqmetting.registry.ServiceRegistry;
 import com.xqmetting.server.service.Service;
 import com.xqmetting.server.utils.SpringContextUtil;
@@ -79,8 +80,8 @@ public class Server extends Service implements InitializingBean {
                         log.info("服务端启动成功！");
 
                         //注册到zookeeper
-                    //    ServerNode serverNode = new ServerNode("127.0.0.1",socketConfig.getPort());
-                      ///  serviceRegistry.register(serverNode);
+                        ServerNode serverNode = new ServerNode("127.0.0.1",socketConfig.getPort());
+                        serviceRegistry.register(serverNode);
                         //开启监听
                         serverRouterWorker.init();
                     }

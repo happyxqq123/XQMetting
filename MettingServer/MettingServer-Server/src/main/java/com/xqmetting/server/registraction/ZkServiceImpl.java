@@ -1,6 +1,6 @@
 package com.xqmetting.server.registraction;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
 import com.xqmetting.entity.ServerNode;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
@@ -35,7 +35,7 @@ public class ZkServiceImpl implements ZkService{
 
     @Override
     public String createNode(String path, ServerNode serverNode) throws Exception {
-        byte [] payload = new Gson().toJson(serverNode).getBytes(StandardCharsets.UTF_8);
+        byte [] payload = JSON.toJSONString(serverNode).getBytes(StandardCharsets.UTF_8);
         String pathRegistered = curatorFramework.create()
                 .creatingParentsIfNeeded()
                 .withMode(CreateMode.EPHEMERAL_SEQUENTIAL)

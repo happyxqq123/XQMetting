@@ -74,7 +74,5 @@ public class ServerPeerSender {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
 }

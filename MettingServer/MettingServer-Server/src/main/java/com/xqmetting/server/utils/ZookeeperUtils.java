@@ -1,5 +1,8 @@
 package com.xqmetting.server.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ZookeeperUtils {
 
     public static final String MANAGE_PATH ="/mt/nodes";
@@ -18,6 +21,7 @@ public class ZookeeperUtils {
         }
 
         if (null == sid) {
+            log.info("{}。节点获取失败",path);
             throw new RuntimeException("节点ID获取失败");
         }
         return Long.parseLong(sid);

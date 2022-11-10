@@ -3,14 +3,12 @@ package com.xqmetting.server.lock.zk;
 import com.xqmetting.server.lock.AbstractLock;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.api.CuratorWatcher;
-import org.apache.curator.framework.recipes.cache.*;
+import org.apache.curator.framework.recipes.cache.ChildData;
+import org.apache.curator.framework.recipes.cache.CuratorCache;
+import org.apache.curator.framework.recipes.cache.CuratorCacheListener;
 import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.data.Stat;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -37,14 +35,19 @@ public class ZkDistributedLock extends AbstractLock implements InitializingBean,
     private String currentPath; //当前节点
 
     public void init(){
+        Stat stat = null;
         try {
-            Stat stat = curatorFramework.checkExists().forPath(path);
-            if(stat == null){
-                curatorFramework.create().withMode(CreateMode.PERSISTENT).forPath(path);
+            synchronized(ZkDistributedLock.class){
+                stat = curatorFramework.checkExists().forPath(path);
+                if(stat == null){
+                    curatorFramework.create().withMode(CreateMode.PERSISTENT).forPath(path);
+                    log.info("创建/lock节点成功!");
+                }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
-            log.info("创建并发锁/lock节点失败");
+            log.info("创建并发锁/lock节点失败,{}",stat);
             throw new RuntimeException(e);
         }
     }
