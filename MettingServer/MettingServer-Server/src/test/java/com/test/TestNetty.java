@@ -3,10 +3,11 @@ package com.test;
 
 import com.xqmetting.codec.MeetMessageCodec;
 import com.xqmetting.codec.ProtocolFrameDecoder;
-import com.xqmetting.protocol.PingMessageOuterClass.PingMessage;
+import com.xqmetting.protocol.BaseMessageOuterClass;
+import com.xqmetting.protocol.BaseMessageOuterClass.BaseMessage;
+import com.xqmetting.protocol.PingRequestOuterClass;
 import com.xqmetting.server.MettingServerApplication;
 import com.xqmetting.server.service.SocketConfig;
-import com.xqmetting.util.ProtoBufUtils;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.embedded.EmbeddedChannel;
 import io.netty.handler.logging.LoggingHandler;
@@ -17,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,18 +41,41 @@ public class TestNetty {
 //        Message message =  ProtoBufUtils.newPingMessage();
 //        embeddedChannel.writeOutbound(message);
 //        //embeddedChannel.writeAndFlush(message);
-    }
-
-    @Test
-    public void testEmbeddedChannelIn(){
-        PingMessage pingMessage = ProtoBufUtils.newPingMessage();
         EmbeddedChannel embeddedChannel = new EmbeddedChannel();
         ChannelPipeline channelPipeline = embeddedChannel.pipeline();
         channelPipeline.addLast(new LoggingHandler());
         channelPipeline.addLast(new ProtocolFrameDecoder());
         channelPipeline.addLast("codec",new MeetMessageCodec());
+        BaseMessage.Builder baseMessageBuilder = BaseMessage.newBuilder();
+        baseMessageBuilder.setMessageType(BaseMessageOuterClass.MessageType.PingMessageType);
+        baseMessageBuilder.setSequenceId(2);
+        baseMessageBuilder.setPingRequest(PingRequestOuterClass.PingRequest.newBuilder());
+        embeddedChannel.writeAndFlush(baseMessageBuilder.build());
 
-        embeddedChannel.writeOutbound(pingMessage);
+    }
+
+    @Test
+    public void testEmbeddedChannelIn(){
+/*        PingMessage pingMessage = ProtoBufUtils.newPingMessage();
+        EmbeddedChannel embeddedChannel = new EmbeddedChannel();
+        ChannelPipeline channelPipeline = embeddedChannel.pipeline();
+        channelPipeline.addLast(new LoggingHandler());
+        channelPipeline.addLast(new ProtocolFrameDecoder());
+        channelPipeline.addLast("codec",new MeetMessageCodec());
+        embeddedChannel.writeOutbound(pingMessage);*/
+
+        BaseMessage.Builder baseMessageBuilder = BaseMessage.newBuilder();
+        baseMessageBuilder.setMessageType(BaseMessageOuterClass.MessageType.PingMessageType);
+        baseMessageBuilder.setSequenceId(1);
+        baseMessageBuilder.setPingRequest(PingRequestOuterClass.PingRequest.newBuilder());
+        EmbeddedChannel embeddedChannel1 = new EmbeddedChannel();
+        ChannelPipeline channelPipeline1 = embeddedChannel1.pipeline();
+        channelPipeline1.addLast(new LoggingHandler());
+        channelPipeline1.addLast(new ProtocolFrameDecoder());
+        channelPipeline1.addLast("codec",new MeetMessageCodec());
+        embeddedChannel1.writeOutbound(baseMessageBuilder.build());
+
+
     }
 
     @Test
@@ -62,8 +85,8 @@ public class TestNetty {
 
     @Test
     public void testProtobuf() throws NoSuchMethodException {
-        Method method = PingMessage.class.getMethod("parseFrom", byte[].class);
-        System.out.println(method);
+/*        Method method = PingMessage.class.getMethod("parseFrom", byte[].class);
+        System.out.println(method);*/
     }
 
     @Test

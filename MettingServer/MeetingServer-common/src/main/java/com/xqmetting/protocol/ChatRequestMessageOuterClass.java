@@ -53,21 +53,6 @@ public final class ChatRequestMessageOuterClass {
      */
     com.google.protobuf.ByteString
         getFromBytes();
-
-    /**
-     * <code>.Message msg = 4;</code>
-     * @return Whether the msg field is set.
-     */
-    boolean hasMsg();
-    /**
-     * <code>.Message msg = 4;</code>
-     * @return The msg.
-     */
-    com.xqmetting.protocol.MessageOuterClass.Message getMsg();
-    /**
-     * <code>.Message msg = 4;</code>
-     */
-    com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder getMsgOrBuilder();
   }
   /**
    * Protobuf type {@code ChatRequestMessage}
@@ -133,19 +118,6 @@ public final class ChatRequestMessageOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               from_ = s;
-              break;
-            }
-            case 34: {
-              com.xqmetting.protocol.MessageOuterClass.Message.Builder subBuilder = null;
-              if (msg_ != null) {
-                subBuilder = msg_.toBuilder();
-              }
-              msg_ = input.readMessage(com.xqmetting.protocol.MessageOuterClass.Message.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(msg_);
-                msg_ = subBuilder.buildPartial();
-              }
-
               break;
             }
             default: {
@@ -296,32 +268,6 @@ public final class ChatRequestMessageOuterClass {
       }
     }
 
-    public static final int MSG_FIELD_NUMBER = 4;
-    private com.xqmetting.protocol.MessageOuterClass.Message msg_;
-    /**
-     * <code>.Message msg = 4;</code>
-     * @return Whether the msg field is set.
-     */
-    @java.lang.Override
-    public boolean hasMsg() {
-      return msg_ != null;
-    }
-    /**
-     * <code>.Message msg = 4;</code>
-     * @return The msg.
-     */
-    @java.lang.Override
-    public com.xqmetting.protocol.MessageOuterClass.Message getMsg() {
-      return msg_ == null ? com.xqmetting.protocol.MessageOuterClass.Message.getDefaultInstance() : msg_;
-    }
-    /**
-     * <code>.Message msg = 4;</code>
-     */
-    @java.lang.Override
-    public com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder getMsgOrBuilder() {
-      return getMsg();
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -345,9 +291,6 @@ public final class ChatRequestMessageOuterClass {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(from_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, from_);
       }
-      if (msg_ != null) {
-        output.writeMessage(4, getMsg());
-      }
       unknownFields.writeTo(output);
     }
 
@@ -365,10 +308,6 @@ public final class ChatRequestMessageOuterClass {
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(from_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, from_);
-      }
-      if (msg_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, getMsg());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -391,11 +330,6 @@ public final class ChatRequestMessageOuterClass {
           .equals(other.getTo())) return false;
       if (!getFrom()
           .equals(other.getFrom())) return false;
-      if (hasMsg() != other.hasMsg()) return false;
-      if (hasMsg()) {
-        if (!getMsg()
-            .equals(other.getMsg())) return false;
-      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -413,10 +347,6 @@ public final class ChatRequestMessageOuterClass {
       hash = (53 * hash) + getTo().hashCode();
       hash = (37 * hash) + FROM_FIELD_NUMBER;
       hash = (53 * hash) + getFrom().hashCode();
-      if (hasMsg()) {
-        hash = (37 * hash) + MSG_FIELD_NUMBER;
-        hash = (53 * hash) + getMsg().hashCode();
-      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -556,12 +486,6 @@ public final class ChatRequestMessageOuterClass {
 
         from_ = "";
 
-        if (msgBuilder_ == null) {
-          msg_ = null;
-        } else {
-          msg_ = null;
-          msgBuilder_ = null;
-        }
         return this;
       }
 
@@ -591,11 +515,6 @@ public final class ChatRequestMessageOuterClass {
         result.content_ = content_;
         result.to_ = to_;
         result.from_ = from_;
-        if (msgBuilder_ == null) {
-          result.msg_ = msg_;
-        } else {
-          result.msg_ = msgBuilder_.build();
-        }
         onBuilt();
         return result;
       }
@@ -655,9 +574,6 @@ public final class ChatRequestMessageOuterClass {
         if (!other.getFrom().isEmpty()) {
           from_ = other.from_;
           onChanged();
-        }
-        if (other.hasMsg()) {
-          mergeMsg(other.getMsg());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -915,125 +831,6 @@ public final class ChatRequestMessageOuterClass {
         onChanged();
         return this;
       }
-
-      private com.xqmetting.protocol.MessageOuterClass.Message msg_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.xqmetting.protocol.MessageOuterClass.Message, com.xqmetting.protocol.MessageOuterClass.Message.Builder, com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder> msgBuilder_;
-      /**
-       * <code>.Message msg = 4;</code>
-       * @return Whether the msg field is set.
-       */
-      public boolean hasMsg() {
-        return msgBuilder_ != null || msg_ != null;
-      }
-      /**
-       * <code>.Message msg = 4;</code>
-       * @return The msg.
-       */
-      public com.xqmetting.protocol.MessageOuterClass.Message getMsg() {
-        if (msgBuilder_ == null) {
-          return msg_ == null ? com.xqmetting.protocol.MessageOuterClass.Message.getDefaultInstance() : msg_;
-        } else {
-          return msgBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.Message msg = 4;</code>
-       */
-      public Builder setMsg(com.xqmetting.protocol.MessageOuterClass.Message value) {
-        if (msgBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          msg_ = value;
-          onChanged();
-        } else {
-          msgBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.Message msg = 4;</code>
-       */
-      public Builder setMsg(
-          com.xqmetting.protocol.MessageOuterClass.Message.Builder builderForValue) {
-        if (msgBuilder_ == null) {
-          msg_ = builderForValue.build();
-          onChanged();
-        } else {
-          msgBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.Message msg = 4;</code>
-       */
-      public Builder mergeMsg(com.xqmetting.protocol.MessageOuterClass.Message value) {
-        if (msgBuilder_ == null) {
-          if (msg_ != null) {
-            msg_ =
-              com.xqmetting.protocol.MessageOuterClass.Message.newBuilder(msg_).mergeFrom(value).buildPartial();
-          } else {
-            msg_ = value;
-          }
-          onChanged();
-        } else {
-          msgBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.Message msg = 4;</code>
-       */
-      public Builder clearMsg() {
-        if (msgBuilder_ == null) {
-          msg_ = null;
-          onChanged();
-        } else {
-          msg_ = null;
-          msgBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.Message msg = 4;</code>
-       */
-      public com.xqmetting.protocol.MessageOuterClass.Message.Builder getMsgBuilder() {
-        
-        onChanged();
-        return getMsgFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.Message msg = 4;</code>
-       */
-      public com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder getMsgOrBuilder() {
-        if (msgBuilder_ != null) {
-          return msgBuilder_.getMessageOrBuilder();
-        } else {
-          return msg_ == null ?
-              com.xqmetting.protocol.MessageOuterClass.Message.getDefaultInstance() : msg_;
-        }
-      }
-      /**
-       * <code>.Message msg = 4;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.xqmetting.protocol.MessageOuterClass.Message, com.xqmetting.protocol.MessageOuterClass.Message.Builder, com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder> 
-          getMsgFieldBuilder() {
-        if (msgBuilder_ == null) {
-          msgBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.xqmetting.protocol.MessageOuterClass.Message, com.xqmetting.protocol.MessageOuterClass.Message.Builder, com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder>(
-                  getMsg(),
-                  getParentForChildren(),
-                  isClean());
-          msg_ = null;
-        }
-        return msgBuilder_;
-      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1101,24 +898,21 @@ public final class ChatRequestMessageOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\030ChatRequestMessage.proto\032\rMessage.prot" +
-      "o\"V\n\022ChatRequestMessage\022\017\n\007content\030\001 \001(\t" +
-      "\022\n\n\002to\030\002 \001(\t\022\014\n\004from\030\003 \001(\t\022\025\n\003msg\030\004 \001(\0132" +
-      "\010.MessageB\030\n\026com.xqmetting.protocolP\000b\006p" +
+      "\n\030ChatRequestMessage.proto\"?\n\022ChatReques" +
+      "tMessage\022\017\n\007content\030\001 \001(\t\022\n\n\002to\030\002 \001(\t\022\014\n" +
+      "\004from\030\003 \001(\tB\030\n\026com.xqmetting.protocolb\006p" +
       "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.xqmetting.protocol.MessageOuterClass.getDescriptor(),
         });
     internal_static_ChatRequestMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_ChatRequestMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ChatRequestMessage_descriptor,
-        new java.lang.String[] { "Content", "To", "From", "Msg", });
-    com.xqmetting.protocol.MessageOuterClass.getDescriptor();
+        new java.lang.String[] { "Content", "To", "From", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

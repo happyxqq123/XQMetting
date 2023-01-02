@@ -2,10 +2,8 @@ syntax="proto3";
 
 option java_package = "com.xqmetting.protocol";
 
-import "Message.proto";
 
-message PingMessage{
+message PingRequest{
 
-  Message msg = 1;
-  
+
 }

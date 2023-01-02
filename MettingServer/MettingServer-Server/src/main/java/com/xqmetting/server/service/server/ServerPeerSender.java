@@ -3,7 +3,6 @@ package com.xqmetting.server.service.server;
 import com.xqmetting.codec.MeetMessageCodec;
 import com.xqmetting.codec.ProtocolFrameDecoder;
 import com.xqmetting.entity.ServerNode;
-import com.xqmetting.util.ProtoBufUtils;
 import com.xqmetting.server.utils.SpringContextUtil;
 import com.xqmetting.server.worker.ServerWorker;
 import io.netty.bootstrap.Bootstrap;
@@ -55,13 +54,13 @@ public class ServerPeerSender {
                                     IdleStateEvent event =(IdleStateEvent) evt;
                                     if(event.state() == IdleState.WRITER_IDLE){
                                         log.info("{},没有写数据了，发送一个心跳包[服务间]",WRITE_IDLE_GAP);
-                                        ctx.writeAndFlush(ProtoBufUtils.newPingMessage());
+                                        //ctx.writeAndFlush(ProtoBufUtils.newPingMessage());
                                     }
                                 }
 
                                 @Override
                                 public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                                    ctx.writeAndFlush(ProtoBufUtils.newServerPeerConnectedMessage());
+                                  //  ctx.writeAndFlush(ProtoBufUtils.newServerPeerConnectedMessage());
                                 }
                             });
                         }

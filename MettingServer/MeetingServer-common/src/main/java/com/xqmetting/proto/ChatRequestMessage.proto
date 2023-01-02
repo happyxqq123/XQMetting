@@ -2,11 +2,9 @@ syntax="proto3";
 
 option java_package = "com.xqmetting.protocol";
 
-import public "Message.proto";
 
 message ChatRequestMessage{
   string content = 1;
   string to = 2;
   string from = 3;
-  Message msg = 4;
 }

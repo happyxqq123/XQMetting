@@ -2,14 +2,7 @@ package com.xqmetting.util;
 
 import com.google.common.collect.Maps;
 import com.google.protobuf.GeneratedMessageV3;
-import com.xqmetting.protocol.*;
-import com.xqmetting.protocol.MessageOuterClass.Message;
-import com.xqmetting.protocol.MessageOuterClass.MessageType;
-import com.xqmetting.protocol.PingMessageOuterClass.PingMessage;
-import com.xqmetting.protocol.ServerPeerConnectedMessageOuterClass.ServerPeerConnectedMessage;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Map;
 
 ;
@@ -18,7 +11,7 @@ public class ProtoBufUtils {
 
     private  static Map<Integer, Class<? extends GeneratedMessageV3>> messageMap = Maps.newHashMap();
 
-    static{
+/*    static{
         messageMap.put(MessageType.ChatRequestMessageType.getNumber(), ChatRequestMessageOuterClass.ChatRequestMessage.class);
         messageMap.put(MessageType.ChatResponseMessageType.getNumber(), ChatResponseMessageOuterClass.ChatResponseMessage.class);
         messageMap.put(MessageType.GroupChatRequestMessageType.getNumber(), GroupChatRequestMessageOuterClass.GroupChatRequestMessage.class);
@@ -75,6 +68,6 @@ public class ProtoBufUtils {
         msgBuilder.setMessageType(MessageType.ServerPeerConnectedMessageType);
         builder.setMsg(msgBuilder.build());
         return builder.build();
-    }
+    }*/
 
 }

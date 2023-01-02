@@ -17,21 +17,6 @@ public final class ServerPeerConnectedMessageOuterClass {
   public interface ServerPeerConnectedMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ServerPeerConnectedMessage)
       com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>.Message msg = 1;</code>
-     * @return Whether the msg field is set.
-     */
-    boolean hasMsg();
-    /**
-     * <code>.Message msg = 1;</code>
-     * @return The msg.
-     */
-    com.xqmetting.protocol.MessageOuterClass.Message getMsg();
-    /**
-     * <code>.Message msg = 1;</code>
-     */
-    com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder getMsgOrBuilder();
   }
   /**
    * Protobuf type {@code ServerPeerConnectedMessage}
@@ -78,19 +63,6 @@ public final class ServerPeerConnectedMessageOuterClass {
             case 0:
               done = true;
               break;
-            case 10: {
-              com.xqmetting.protocol.MessageOuterClass.Message.Builder subBuilder = null;
-              if (msg_ != null) {
-                subBuilder = msg_.toBuilder();
-              }
-              msg_ = input.readMessage(com.xqmetting.protocol.MessageOuterClass.Message.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(msg_);
-                msg_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -125,32 +97,6 @@ public final class ServerPeerConnectedMessageOuterClass {
               com.xqmetting.protocol.ServerPeerConnectedMessageOuterClass.ServerPeerConnectedMessage.class, com.xqmetting.protocol.ServerPeerConnectedMessageOuterClass.ServerPeerConnectedMessage.Builder.class);
     }
 
-    public static final int MSG_FIELD_NUMBER = 1;
-    private com.xqmetting.protocol.MessageOuterClass.Message msg_;
-    /**
-     * <code>.Message msg = 1;</code>
-     * @return Whether the msg field is set.
-     */
-    @java.lang.Override
-    public boolean hasMsg() {
-      return msg_ != null;
-    }
-    /**
-     * <code>.Message msg = 1;</code>
-     * @return The msg.
-     */
-    @java.lang.Override
-    public com.xqmetting.protocol.MessageOuterClass.Message getMsg() {
-      return msg_ == null ? com.xqmetting.protocol.MessageOuterClass.Message.getDefaultInstance() : msg_;
-    }
-    /**
-     * <code>.Message msg = 1;</code>
-     */
-    @java.lang.Override
-    public com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder getMsgOrBuilder() {
-      return getMsg();
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -165,9 +111,6 @@ public final class ServerPeerConnectedMessageOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (msg_ != null) {
-        output.writeMessage(1, getMsg());
-      }
       unknownFields.writeTo(output);
     }
 
@@ -177,10 +120,6 @@ public final class ServerPeerConnectedMessageOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (msg_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getMsg());
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -196,11 +135,6 @@ public final class ServerPeerConnectedMessageOuterClass {
       }
       com.xqmetting.protocol.ServerPeerConnectedMessageOuterClass.ServerPeerConnectedMessage other = (com.xqmetting.protocol.ServerPeerConnectedMessageOuterClass.ServerPeerConnectedMessage) obj;
 
-      if (hasMsg() != other.hasMsg()) return false;
-      if (hasMsg()) {
-        if (!getMsg()
-            .equals(other.getMsg())) return false;
-      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -212,10 +146,6 @@ public final class ServerPeerConnectedMessageOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasMsg()) {
-        hash = (37 * hash) + MSG_FIELD_NUMBER;
-        hash = (53 * hash) + getMsg().hashCode();
-      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -349,12 +279,6 @@ public final class ServerPeerConnectedMessageOuterClass {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (msgBuilder_ == null) {
-          msg_ = null;
-        } else {
-          msg_ = null;
-          msgBuilder_ = null;
-        }
         return this;
       }
 
@@ -381,11 +305,6 @@ public final class ServerPeerConnectedMessageOuterClass {
       @java.lang.Override
       public com.xqmetting.protocol.ServerPeerConnectedMessageOuterClass.ServerPeerConnectedMessage buildPartial() {
         com.xqmetting.protocol.ServerPeerConnectedMessageOuterClass.ServerPeerConnectedMessage result = new com.xqmetting.protocol.ServerPeerConnectedMessageOuterClass.ServerPeerConnectedMessage(this);
-        if (msgBuilder_ == null) {
-          result.msg_ = msg_;
-        } else {
-          result.msg_ = msgBuilder_.build();
-        }
         onBuilt();
         return result;
       }
@@ -434,9 +353,6 @@ public final class ServerPeerConnectedMessageOuterClass {
 
       public Builder mergeFrom(com.xqmetting.protocol.ServerPeerConnectedMessageOuterClass.ServerPeerConnectedMessage other) {
         if (other == com.xqmetting.protocol.ServerPeerConnectedMessageOuterClass.ServerPeerConnectedMessage.getDefaultInstance()) return this;
-        if (other.hasMsg()) {
-          mergeMsg(other.getMsg());
-        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -464,125 +380,6 @@ public final class ServerPeerConnectedMessageOuterClass {
           }
         }
         return this;
-      }
-
-      private com.xqmetting.protocol.MessageOuterClass.Message msg_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.xqmetting.protocol.MessageOuterClass.Message, com.xqmetting.protocol.MessageOuterClass.Message.Builder, com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder> msgBuilder_;
-      /**
-       * <code>.Message msg = 1;</code>
-       * @return Whether the msg field is set.
-       */
-      public boolean hasMsg() {
-        return msgBuilder_ != null || msg_ != null;
-      }
-      /**
-       * <code>.Message msg = 1;</code>
-       * @return The msg.
-       */
-      public com.xqmetting.protocol.MessageOuterClass.Message getMsg() {
-        if (msgBuilder_ == null) {
-          return msg_ == null ? com.xqmetting.protocol.MessageOuterClass.Message.getDefaultInstance() : msg_;
-        } else {
-          return msgBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.Message msg = 1;</code>
-       */
-      public Builder setMsg(com.xqmetting.protocol.MessageOuterClass.Message value) {
-        if (msgBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          msg_ = value;
-          onChanged();
-        } else {
-          msgBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.Message msg = 1;</code>
-       */
-      public Builder setMsg(
-          com.xqmetting.protocol.MessageOuterClass.Message.Builder builderForValue) {
-        if (msgBuilder_ == null) {
-          msg_ = builderForValue.build();
-          onChanged();
-        } else {
-          msgBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.Message msg = 1;</code>
-       */
-      public Builder mergeMsg(com.xqmetting.protocol.MessageOuterClass.Message value) {
-        if (msgBuilder_ == null) {
-          if (msg_ != null) {
-            msg_ =
-              com.xqmetting.protocol.MessageOuterClass.Message.newBuilder(msg_).mergeFrom(value).buildPartial();
-          } else {
-            msg_ = value;
-          }
-          onChanged();
-        } else {
-          msgBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.Message msg = 1;</code>
-       */
-      public Builder clearMsg() {
-        if (msgBuilder_ == null) {
-          msg_ = null;
-          onChanged();
-        } else {
-          msg_ = null;
-          msgBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.Message msg = 1;</code>
-       */
-      public com.xqmetting.protocol.MessageOuterClass.Message.Builder getMsgBuilder() {
-        
-        onChanged();
-        return getMsgFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.Message msg = 1;</code>
-       */
-      public com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder getMsgOrBuilder() {
-        if (msgBuilder_ != null) {
-          return msgBuilder_.getMessageOrBuilder();
-        } else {
-          return msg_ == null ?
-              com.xqmetting.protocol.MessageOuterClass.Message.getDefaultInstance() : msg_;
-        }
-      }
-      /**
-       * <code>.Message msg = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.xqmetting.protocol.MessageOuterClass.Message, com.xqmetting.protocol.MessageOuterClass.Message.Builder, com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder> 
-          getMsgFieldBuilder() {
-        if (msgBuilder_ == null) {
-          msgBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.xqmetting.protocol.MessageOuterClass.Message, com.xqmetting.protocol.MessageOuterClass.Message.Builder, com.xqmetting.protocol.MessageOuterClass.MessageOrBuilder>(
-                  getMsg(),
-                  getParentForChildren(),
-                  isClean());
-          msg_ = null;
-        }
-        return msgBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -651,23 +448,22 @@ public final class ServerPeerConnectedMessageOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n ServerPeerConnectedMessage.proto\032\rMess" +
-      "age.proto\"3\n\032ServerPeerConnectedMessage\022" +
-      "\025\n\003msg\030\001 \001(\0132\010.MessageB\030\n\026com.xqmetting." +
-      "protocolb\006proto3"
+      "\n ServerPeerConnectedMessage.proto\032\021Base" +
+      "Message.proto\"\034\n\032ServerPeerConnectedMess" +
+      "ageB\030\n\026com.xqmetting.protocolb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.xqmetting.protocol.MessageOuterClass.getDescriptor(),
+          com.xqmetting.protocol.BaseMessageOuterClass.getDescriptor(),
         });
     internal_static_ServerPeerConnectedMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_ServerPeerConnectedMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ServerPeerConnectedMessage_descriptor,
-        new java.lang.String[] { "Msg", });
-    com.xqmetting.protocol.MessageOuterClass.getDescriptor();
+        new java.lang.String[] { });
+    com.xqmetting.protocol.BaseMessageOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

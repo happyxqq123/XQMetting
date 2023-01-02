@@ -4,10 +4,17 @@ option java_package = "com.xqmetting.protocol";
 
 
 import "google/protobuf/any.proto";
+import "request/PingRequest.proto";
 
-message Message{
+/*顶层消息*/
+//顶层消息是一种嵌套消息，嵌套了各种类型得消息
+//内部的消息类型，全部使用optional字段
+//根据消息类型 type的值，最多只有一个有效
+
+message BaseMessage{
   int32 sequenceId = 1;
   MessageType messageType = 3;
+  optional PingRequest pingRequest = 4;
 }
 
 enum MessageType{
@@ -21,7 +28,6 @@ enum MessageType{
     PongMessageType = 7;
     ServerPeerConnectedMessageType = 8;
     GroupRemoteChatRequestMessageType = 9;
-
     /**
      * 请求类型 byte值
      */
